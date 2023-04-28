@@ -4,37 +4,23 @@ import { useState } from "react";
 import Counter from "./components/Counter";
 
 function App() {
-  const [counters, setCounters] = useState([0]);
-
-  const setCounter = (id) => {
-    return (value) => {
-      const newCounters = [...counters];
-      newCounters[id] = value;
-      setCounters(newCounters);
-    };
-  };
+  // ids ?
+  const [countersId, setCountersId] = useState([0]);
 
   return (
     <div className="app">
       <button
-        disabled={counters.length >= 3}
+        disabled={countersId.length >= 3}
         onClick={() => {
-          setCounters([...counters, 0]);
+          setCountersId([...countersId, Math.max(...countersId) + 1]);
         }}
       >
         Add Counter
       </button>
 
       <div className="counters">
-        {counters.map((counter, i) => {
-          return (
-            <Counter
-              key={i}
-              id={i}
-              counter={counter}
-              setCounter={setCounter(i)} // function factory
-            />
-          );
+        {countersId.map((id) => {
+          return <Counter key={id} />;
         })}
       </div>
     </div>
